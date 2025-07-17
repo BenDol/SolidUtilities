@@ -43,6 +43,12 @@
         {
             return Mathf.Max(GetMainWindowPosition().xMax, Screen.currentResolution.width);
         }
+        
+        [PublicAPI, Pure]
+        public static float GetScreenHeight()
+        {
+            return Mathf.Max(GetMainWindowPosition().yMax, Screen.currentResolution.height);
+        }
 
         /// <summary>
         /// Returns the rectangle of the main Unity window.
