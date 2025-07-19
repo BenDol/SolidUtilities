@@ -1,4 +1,6 @@
-﻿namespace SolidUtilities.Editor
+﻿using UnityEngine;
+
+namespace SolidUtilities.Editor
 {
     using System;
     using Editor;
@@ -35,8 +37,14 @@
                 string assetPath = AssetDatabase.GUIDToAssetPath(guid);
                 var asset = AssetDatabase.LoadAssetAtPath<MonoScript>(assetPath);
 
-                if (asset is null || asset.GetClassType(typeNameWithoutSuffix) != type)
+                try {
+                    if (asset is null || asset.GetClassType(typeNameWithoutSuffix) != type)
+                        continue;
+                }
+                catch (Exception ex) {
+                    Debug.LogError($"Failed to get class type for {typeNameWithoutSuffix} in asset {assetPath}: {ex.Message}");
                     continue;
+                }
 
                 GUID = guid;
                 monoScript = asset;

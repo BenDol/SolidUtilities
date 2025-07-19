@@ -34,6 +34,12 @@
                 return null;
 
             string assemblyName = script.GetAssemblyName();
+            if (assemblyName == string.Empty)
+            {
+                // If the assembly name is empty, the script is not compiled into an assembly, so we cannot load it.
+                return null;
+            }
+            
             Assembly assembly;
 
             try

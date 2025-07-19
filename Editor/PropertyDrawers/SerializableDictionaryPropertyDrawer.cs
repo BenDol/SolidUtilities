@@ -83,8 +83,22 @@
             var buttonAction = Action.None;
             int buttonActionIndex = 0;
 
-            SerializedProperty keyArrayProperty = property.FindPropertyRelative(KeysFieldName);
-            SerializedProperty valueArrayProperty = property.FindPropertyRelative(ValuesFieldName);
+            SerializedProperty? keyArrayProperty = property.FindPropertyRelative(KeysFieldName);
+            SerializedProperty? valueArrayProperty = property.FindPropertyRelative(ValuesFieldName);
+            
+            if (keyArrayProperty == null)
+            {
+                EditorGUI.LabelField(position, label.text, "Keys property not found.");
+                EditorGUI.EndProperty();
+                return;
+            }
+            
+            if (valueArrayProperty == null)
+            {
+                EditorGUI.LabelField(position, label.text, "Values property not found.");
+                EditorGUI.EndProperty();
+                return;
+            }
 
             ConflictState conflictState = GetConflictState(property);
 
